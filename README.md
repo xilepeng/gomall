@@ -34,10 +34,15 @@ source ./autocomplete/zsh_autocomplete
 
 
 ```shell
-cd  demo/demo_thrift  
+➜  gomall git:(main) ✗ mkdir demo/demo_thrift     
+➜  gomall git:(main) ✗ cd demo/demo_thrift 
 
-cwgo server --type RPC --module github.com/xilepeng/gomall/demo/demo_thrift --service demo_thrift --idl ../../idl/echo.thrift
+cwgo server --type RPC -I ../../idl --idl ../../idl/echo.thrift --server_name demo_thrift --module github.com/xilepeng/gomall/demo/demo_thrift
 
-cd demo_proto 
-cwgo server  --type RPC  -I ../../idl  --server_name demo_proto --module github.com/xilepeng/gomall/demo/demo_proto --idl ../../idl/echo.proto
+
+➜  gomall git:(main) ✗ mkdir demo/demo_proto     
+➜  gomall git:(main) ✗ cd demo/demo_proto 
+
+cwgo server --type RPC -I ../../idl --idl ../../idl/echo.proto --server_name demo_proto --module github.com/xilepeng/gomall/demo/demo_proto
+
 ```

@@ -1,15 +1,21 @@
 version: '3'
 services:
   mysql:
-    image: 'mysql:latest'
+    image: 'mysql:9.1.0'
     ports:
       - 3306:3306
     environment:
-      - MYSQL_DATABASE=gorm
+      - MYSQL_DATABASE=gorm 
       - MYSQL_USER=gorm
       - MYSQL_PASSWORD=gorm
       - MYSQL_RANDOM_ROOT_PASSWORD="yes"
+      - MYSQL_ROOT_PASSWORD=0000
   redis:
-    image: 'redis:latest'
+    image: 'redis:7.4.1'
     ports:
       - 6379:6379
+  consul:
+    image: 'hashicorp/consul:1.20.1'
+    ports:
+      - 8500:8500
+

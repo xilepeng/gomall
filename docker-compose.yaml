@@ -9,4 +9,5 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=0000
+      - MYSQL_DATABASE=demo_proto

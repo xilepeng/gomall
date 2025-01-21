@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/xilepeng/gomall/demo/demo_proto/biz/model"
 	"github.com/xilepeng/gomall/demo/demo_proto/conf"
 
 	"gorm.io/driver/mysql"
@@ -16,6 +17,7 @@ var (
 )
 
 func Init() {
+
 	dsn := fmt.Sprintf(conf.GetConf().MySQL.DSN,
 		os.Getenv("MYSQL_USER"),
 		os.Getenv("MYSQL_PASSWORD"),
@@ -31,16 +33,6 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-
-	// type Version struct {
-	// 	Version string
-	// }
-
-	// var v Version
-	// err = DB.Raw("select version() as version ").Scan(&v).Error
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Println("MySQL version:", v.Version)
-	// fmt.Println(v)
+	// AutoMigrate 会创建表、缺失的外键、约束、列和索引。
+	DB.AutoMigrate(&model.User{})
 }
