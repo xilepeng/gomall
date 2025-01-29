@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package frontend.home;
+
+option go_package = "frontend/home";
+
+import "api.proto";
+
+message Empty{}
+
+service HomeService {
+   rpc Method1(Empty) returns(Empty) {
+      option (api.get) = "/";
+   }
+}
+
+// ➜  frontend git:(main) ✗ cwgo server --type HTTP --server_name frontend --module github.com/xilepeng/gomall/app/frontend -I ../../idl --idl ../../idl/frontend/home.proto
