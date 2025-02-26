@@ -11,7 +11,7 @@ message RegisterReq {
 }
 
 message RegisterResp {
-  string user_id = 1;
+  int32 user_id = 1;
 }
 
 message LoginReq {
@@ -20,7 +20,7 @@ message LoginReq {
 }
 
 message LoginResp {
-  string user_id = 1;
+  int32 user_id = 1;
 }
 
 service UserService {
@@ -28,12 +28,10 @@ service UserService {
   rpc Login (LoginReq) returns(LoginResp){}
 }
 
-
+// 生成客户端
 // ➜  rpc_gen git:(main) ✗ 
-// cwgo client --type RPC --idl ../idl/frontend/user.proto --server_name user 
-// --module github.com/xilepeng/gomall/rpc_gen -I ../idl
+// cwgo client --type RPC --idl ../idl/frontend/user.proto --server_name user --module github.com/xilepeng/gomall/rpc_gen -I ../idl
 
-
+// 生成服务端
 // ➜  user git:(main) ✗
-// cwgo server --type RPC --idl ../../idl/frontend/user.proto --server_name user 
-// --module github.com/xilepeng/gomall/app/user -I ../../idl --pass "-use github.com/xilepeng/gomall/rpc_gen/kitex_gen"
+// cwgo server --type RPC --idl ../../idl/frontend/user.proto --server_name user --module github.com/xilepeng/gomall/app/user -I ../../idl --pass "-use github.com/xilepeng/gomall/rpc_gen/kitex_gen"
