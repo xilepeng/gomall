@@ -1,6 +1,6 @@
 module github.com/xilepeng/gomall/app/frontend
 
-go 1.23.5
+go 1.24.0
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
@@ -36,6 +36,10 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/google/pprof v0.0.0-20211214055906-6f57359322fd // indirect
+	github.com/gorilla/context v1.1.2 // indirect
+	github.com/gorilla/securecookie v1.1.2 // indirect
+	github.com/gorilla/sessions v1.2.2 // indirect
+	github.com/hertz-contrib/sessions v1.0.3 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect

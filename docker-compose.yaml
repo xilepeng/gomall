@@ -9,5 +9,9 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=0000
       - MYSQL_DATABASE=demo_proto
+      - MYSQL_ROOT_PASSWORD=0000
+  redis:
+    image: "redis:7.4.1"
+    ports:
+      - 6379:6379

@@ -1,17 +1,14 @@
-syntax = "proto3";
-
-package frontend.home;
-
-option go_package = "frontend/home";
+syntax = 'proto3';
+// proto 包名
+package frontend.common;
 
 import "api.proto";
+import "frontend/common.proto";
 
-message Empty{}
+// 生成 golang 代码后的包名
+option go_package = "frontend/home";
 
+// 定义 HomeService 服务
 service HomeService {
-   rpc Method1(Empty) returns(Empty) {
-      option (api.get) = "/";
-   }
+  rpc Home(common.Empty) returns (Empty) { option (api.get) = "/"; }
 }
-
-// ➜  frontend git:(main) ✗ cwgo server --type HTTP --server_name frontend --module github.com/xilepeng/gomall/app/frontend -I ../../idl --idl ../../idl/frontend/home.proto

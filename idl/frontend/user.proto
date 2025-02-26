@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "/user";
+
+message RegisterReq {
+  string email = 1;
+  string password = 2;
+  string password_confirm = 3;
+}
+
+message RegisterResp {
+  string user_id = 1;
+}
+
+message LoginReq {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResp {
+  string user_id = 1;
+}
+
+service UserService {
+  rpc Register (RegisterReq) returns(RegisterResp){}
+  rpc Login (LoginReq) returns(LoginResp){}
+}
+
+
+// ➜  rpc_gen git:(main) ✗ 
+// cwgo client --type RPC --idl ../idl/frontend/user.proto --server_name user 
+// --module github.com/xilepeng/gomall/rpc_gen -I ../idl
+
+
+// ➜  user git:(main) ✗
+// cwgo server --type RPC --idl ../../idl/frontend/user.proto --server_name user 
+// --module github.com/xilepeng/gomall/app/user -I ../../idl --pass "-use github.com/xilepeng/gomall/rpc_gen/kitex_gen"
