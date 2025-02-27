@@ -6,6 +6,7 @@ import (
 	"github.com/xilepeng/gomall/app/frontend/biz/dal/mysql"
 	"github.com/xilepeng/gomall/app/user/model"
 	user "github.com/xilepeng/gomall/rpc_gen/kitex_gen/user"
+
 	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/errgo.v2/fmt/errors"
 )

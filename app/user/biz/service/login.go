@@ -2,7 +2,12 @@ package service
 
 import (
 	"context"
+
+	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/xilepeng/ginmall/biz-demo/gomall/app/user/biz/model"
+	"github.com/xilepeng/gomall/app/frontend/biz/dal/mysql"
 	user "github.com/xilepeng/gomall/rpc_gen/kitex_gen/user"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type LoginService struct {
@@ -16,5 +21,14 @@ func NewLoginService(ctx context.Context) *LoginService {
 func (s *LoginService) Run(req *user.LoginReq) (resp *user.LoginResp, err error) {
 	// Finish your business logic.
 
-	return
+	klog.Infof("LoginReq:%+v", req)
+	userRow, err := model.GetByEmail(mysql.DB, s.ctx, req.Email)
+	if err != nil {
+		return
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(userRow.PasswordHashed), []byte(req.Password))
+	if err != nil {
+		return
+	}
+	return &user.LoginResp{UserId: int32(userRow.ID)}, nil
 }
