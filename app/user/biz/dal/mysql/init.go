@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/xilepeng/gomall/app/user/conf"
+	"github.com/xilepeng/gomall/app/user/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -23,6 +24,7 @@ func Init() {
 			SkipDefaultTransaction: true,
 		},
 	)
+	DB.AutoMigrate(&model.User{})
 	if err != nil {
 		panic(err)
 	}

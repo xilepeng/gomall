@@ -2,13 +2,12 @@ package service
 
 import (
 	"context"
+	"errors"
 
-	"github.com/xilepeng/gomall/app/frontend/biz/dal/mysql"
+	"github.com/xilepeng/gomall/app/user/biz/dal/mysql"
 	"github.com/xilepeng/gomall/app/user/model"
 	user "github.com/xilepeng/gomall/rpc_gen/kitex_gen/user"
-
 	"golang.org/x/crypto/bcrypt"
-	"gopkg.in/errgo.v2/fmt/errors"
 )
 
 type RegisterService struct {
@@ -25,6 +24,7 @@ func (s *RegisterService) Run(req *user.RegisterReq) (resp *user.RegisterResp, e
 	if req.Password != req.PasswordConfirm {
 		return nil, errors.New("password and password confirm not equal")
 	}
+	// 加密密码
 	passwordhashed, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return nil, errors.New("password hash failed")
@@ -38,4 +38,5 @@ func (s *RegisterService) Run(req *user.RegisterReq) (resp *user.RegisterResp, e
 		return nil, err
 	}
 	return &user.RegisterResp{UserId: int32(newUser.ID)}, nil
+
 }

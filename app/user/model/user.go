@@ -1,6 +1,10 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"context"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
 	gorm.Model
@@ -14,4 +18,14 @@ func (User) TableName() string {
 
 func Create(db *gorm.DB, user *User) error {
 	return db.Create(user).Error
+}
+
+// func Create(ctx context.Context, db *gorm.DB, user *User) error {
+// 	return db.WithContext(ctx).Create(user).Error
+// }
+
+func GetByEmail(ctx context.Context, db *gorm.DB, email string) (*User, error) {
+	var user User
+	err := db.WithContext(ctx).Where("email = ?", email).First(&user).Error
+	return &user, err
 }

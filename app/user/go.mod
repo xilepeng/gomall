@@ -4,7 +4,7 @@ go 1.24.0
 
 replace (
 	github.com/apache/thrift => github.com/apache/thrift v0.13.0
-	github.com/xilepeng/gomall/rpc_gen/kitex_gen => ../../rpc_gen
+	github.com/xilepeng/gomall/rpc_gen/kitex_gen => ../../rpc_gen // 自定义模块远端如果找不到，去本地查找
 )
 
 require (
@@ -14,16 +14,16 @@ require (
 	github.com/kitex-contrib/registry-consul v0.1.0
 	github.com/kr/pretty v0.3.1
 	github.com/redis/go-redis/v9 v9.7.1
-	github.com/xilepeng/gomall/app/frontend v0.0.0-20250226080347-c50955e2662e
-	github.com/xilepeng/gomall/rpc_gen v0.0.0-20250226080347-c50955e2662e
+	// github.com/xilepeng/gomall/rpc_gen v0.0.0-20250226080347-c50955e2662e
 	go.uber.org/zap v1.27.0
 	golang.org/x/crypto v0.35.0
-	gopkg.in/errgo.v2 v2.1.0
 	gopkg.in/validator.v2 v2.0.1
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
 )
+
+require github.com/xilepeng/gomall/rpc_gen v0.0.0-20250227095322-74f03e65b888
 
 require (
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
@@ -37,7 +37,6 @@ require (
 	github.com/cloudwego/fastpb v0.0.5 // indirect
 	github.com/cloudwego/frugal v0.2.3 // indirect
 	github.com/cloudwego/gopkg v0.1.4-0.20241217093255-8980b14172b7 // indirect
-	github.com/cloudwego/hertz v0.9.5 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/cloudwego/localsession v0.1.2 // indirect
 	github.com/cloudwego/netpoll v0.6.5 // indirect
