@@ -10,7 +10,7 @@ gen-demo-thrift:
 
 .PHONY: gen-frontend
 gen-frontend:
-	@cd app/frontend && cwgo server --type HTTP --idl ../../idl/frontend/about.proto --server_name frontend --module github.com/xilepeng/gomall/app/frontend -I ../../idl
+	@cd app/frontend && cwgo server --type HTTP --idl ../../idl/frontend/home.proto --server_name frontend --module github.com/xilepeng/gomall/app/frontend -I ../../idl
 
 
 
