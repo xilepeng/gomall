@@ -1,6 +1,6 @@
 module github.com/xilepeng/gomall/app/user
 
-go 1.24.0
+go 1.23.0
 
 replace (
 	github.com/apache/thrift => github.com/apache/thrift v0.13.0
@@ -8,7 +8,7 @@ replace (
 )
 
 require (
-	github.com/cloudwego/kitex v0.12.2
+	github.com/cloudwego/kitex v0.12.3
 	github.com/joho/godotenv v1.5.1
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20241120035129-55da83caab1b
 	github.com/kitex-contrib/registry-consul v0.1.0
@@ -23,8 +23,6 @@ require (
 	gorm.io/gorm v1.25.12
 )
 
-require github.com/xilepeng/gomall/rpc_gen v0.0.0-20250227095322-74f03e65b888
-
 require (
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
 	github.com/bytedance/gopkg v0.1.1 // indirect
@@ -36,7 +34,8 @@ require (
 	github.com/cloudwego/dynamicgo v0.5.2 // indirect
 	github.com/cloudwego/fastpb v0.0.5 // indirect
 	github.com/cloudwego/frugal v0.2.3 // indirect
-	github.com/cloudwego/gopkg v0.1.4-0.20241217093255-8980b14172b7 // indirect
+	github.com/cloudwego/gopkg v0.1.4 // indirect
+	github.com/cloudwego/hertz v0.9.5 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/cloudwego/localsession v0.1.2 // indirect
 	github.com/cloudwego/netpoll v0.6.5 // indirect

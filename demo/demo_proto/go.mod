@@ -1,6 +1,6 @@
 module github.com/xilepeng/gomall/demo/demo_proto
 
-go 1.23.4
+go 1.23.0
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
