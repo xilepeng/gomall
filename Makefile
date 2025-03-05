@@ -18,4 +18,4 @@ gen-frontend:
 .PHONY: gen-user
 gen-user:
 	@cd app/user && cwgo server --type RPC -I ../../idl --idl ../../idl/user.proto --server_name user --module ${ROOTMOD}/app/user  --pass "-use ${ROOTMOD}/rpc_gen/kitex_gen"
-	@cd app/user && cwgo client --type RPC --idl ../idl/user.proto --server_name user --module ${ROOTMOD}/rpc_gen -I ../idl
+	@cd rpc_gen && cwgo client --type RPC --idl ../idl/user.proto --server_name user --module ${ROOTMOD}/rpc_gen -I ../idl
