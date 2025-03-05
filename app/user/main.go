@@ -10,7 +10,7 @@ import (
 	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
-	"github.com/xilepeng/gomall/app/frontend/biz/dal"
+	"github.com/xilepeng/gomall/app/user/biz/dal"
 	"github.com/xilepeng/gomall/app/user/conf"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/user/userservice"
 	"go.uber.org/zap/zapcore"

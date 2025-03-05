@@ -23,6 +23,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/xilepeng/gomall/app/frontend/biz/router"
 	"github.com/xilepeng/gomall/app/frontend/conf"
+	"github.com/xilepeng/gomall/app/frontend/infra/rpc"
 	"github.com/xilepeng/gomall/app/frontend/middleware"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -31,6 +32,7 @@ import (
 func main() {
 	// init dal
 	// dal.Init()
+	rpc.Init()
 	address := conf.GetConf().Hertz.Address
 	h := server.New(server.WithHostPorts(address))
 

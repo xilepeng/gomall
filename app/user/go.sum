@@ -249,6 +249,8 @@ github.com/xilepeng/gomall/app/frontend v0.0.0-20250228135944-f34af6f93dfe h1:lH
 github.com/xilepeng/gomall/app/frontend v0.0.0-20250228135944-f34af6f93dfe/go.mod h1:uSFr6CqhbycUNQOIS4CBAp1g5rDH80yTRAz/DNY219Q=
 github.com/xilepeng/gomall/rpc_gen v0.0.0-20250227095322-74f03e65b888 h1:4k8t5hZgH2DDURcplbpvq+cwKIXewG9Zw/ap/vjqPhg=
 github.com/xilepeng/gomall/rpc_gen v0.0.0-20250227095322-74f03e65b888/go.mod h1:n+EPl3KsFBPkH2VHVbTnvZBFgf1Q8DMhBmD8OTZV4F8=
+github.com/xilepeng/gomall/rpc_gen v0.0.0-20250301134826-21531b8bad63 h1:oKtpiPfqXQF9SoYsMVqy+v0HQuKhmVmn7C6ggbB7auw=
+github.com/xilepeng/gomall/rpc_gen v0.0.0-20250301134826-21531b8bad63/go.mod h1:xeuS1q4lAd1cfVoTAPPnEe8VPmwHwViWvmW3nupNwLA=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
