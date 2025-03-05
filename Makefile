@@ -14,8 +14,12 @@ gen-demo-thrift:
 gen-frontend:
 	@cd app/frontend && cwgo server --type HTTP --idl ../../idl/frontend/home.proto --server_name frontend --module ${ROOTMOD}/app/frontend -I ../../idl
 
-
 .PHONY: gen-user
 gen-user:
+	@cd rpc_gen && cwgo client --type RPC  --server_name user --module ${ROOTMOD}/rpc_gen -I ../idl --idl ../idl/user.proto
 	@cd app/user && cwgo server --type RPC -I ../../idl --idl ../../idl/user.proto --server_name user --module ${ROOTMOD}/app/user  --pass "-use ${ROOTMOD}/rpc_gen/kitex_gen"
-	@cd rpc_gen && cwgo client --type RPC --idl ../idl/user.proto --server_name user --module ${ROOTMOD}/rpc_gen -I ../idl
+	
+.PHONY: gen-product
+gen-product:
+	@cd rpc_gen && cwgo client --type RPC --server_name product --module ${ROOTMOD}/rpc_gen -I ../idl --idl ../idl/product.proto 
+	@cd app/product && cwgo server --type RPC --server_name product --module ${ROOTMOD}/app/product  --pass "-use ${ROOTMOD}/rpc_gen/kitex_gen" -I ../../idl --idl ../../idl/product.proto
