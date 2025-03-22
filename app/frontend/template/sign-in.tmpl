@@ -2,7 +2,7 @@
 {{ template "header" . }}
 <div class="container row p-5">
     <div class="col-4">
-        <form method="post" action="/auth/login?next={{.Next}}">
+        <form method="post" action="/auth/login?next={{.next}}">
             <div class="mb-3">
                 <label for="email1" class="form-label">Email address {{template "required"}}</label>
                 <input type="email" class="form-control" id="email1" name="email">

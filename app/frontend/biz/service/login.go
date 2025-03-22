@@ -7,6 +7,7 @@ import (
 	"github.com/hertz-contrib/sessions"
 	auth "github.com/xilepeng/gomall/app/frontend/hertz_gen/frontend/auth"
 	"github.com/xilepeng/gomall/app/frontend/infra/rpc"
+
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/user"
 )
 

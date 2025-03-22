@@ -1,15 +1,12 @@
 module github.com/xilepeng/gomall/rpc_gen
 
-go 1.23.0
+go 1.23.7
 
-replace (
-	github.com/apache/thrift => github.com/apache/thrift v0.13.0
-	github.com/xilepeng/gomall/rpc_gen => ../../rpc_gen
-)
+replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
 require (
 	github.com/cloudwego/fastpb v0.0.5
-	github.com/cloudwego/kitex v0.12.2
+	github.com/cloudwego/kitex v0.12.3
 	google.golang.org/protobuf v1.33.0
 )
 
@@ -21,7 +18,7 @@ require (
 	github.com/cloudwego/configmanager v0.2.2 // indirect
 	github.com/cloudwego/dynamicgo v0.5.2 // indirect
 	github.com/cloudwego/frugal v0.2.3 // indirect
-	github.com/cloudwego/gopkg v0.1.4-0.20241217093255-8980b14172b7 // indirect
+	github.com/cloudwego/gopkg v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/cloudwego/localsession v0.1.2 // indirect
 	github.com/cloudwego/netpoll v0.6.5 // indirect
