@@ -10,7 +10,7 @@ import (
 	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
-	"github.com/xilepeng/gomall/app/product/biz/dao"
+	"github.com/xilepeng/gomall/app/product/biz/dal"
 	"github.com/xilepeng/gomall/app/product/conf"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"go.uber.org/zap/zapcore"
@@ -19,7 +19,7 @@ import (
 
 func main() {
 	_ = godotenv.Load()
-	dao.Init()
+	dal.Init()
 
 	opts := kitexInit()
 

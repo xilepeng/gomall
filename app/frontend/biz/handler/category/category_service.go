@@ -5,7 +5,6 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-
 	"github.com/xilepeng/gomall/app/frontend/biz/service"
 	"github.com/xilepeng/gomall/app/frontend/biz/utils"
 	category "github.com/xilepeng/gomall/app/frontend/hertz_gen/frontend/category"
@@ -29,7 +28,5 @@ func Category(ctx context.Context, c *app.RequestContext) {
 	}
 
 	// utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
-	// c.HTML(consts.StatusOK, "category", utils.WarpResponse(ctx, c, resp))
 	c.HTML(consts.StatusOK, "category", resp)
-
 }

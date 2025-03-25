@@ -5,10 +5,8 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-
 	"github.com/xilepeng/gomall/app/frontend/biz/service"
 	"github.com/xilepeng/gomall/app/frontend/biz/utils"
-
 	product "github.com/xilepeng/gomall/app/frontend/hertz_gen/frontend/product"
 )
 
