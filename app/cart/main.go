@@ -7,16 +7,25 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
+	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
+	"github.com/xilepeng/gomall/app/cart/biz/dal"
 	"github.com/xilepeng/gomall/app/cart/conf"
+	"github.com/xilepeng/gomall/app/cart/rpc"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func main() {
+	_ = godotenv.Load()
+	dal.Init()
+	rpc.InitClient()
+
 	opts := kitexInit()
+
+	rpc.InitClient()
 
 	svr := cartservice.NewServer(new(CartServiceImpl), opts...)
 
