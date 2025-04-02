@@ -6,7 +6,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/xilepeng/gomall/app/cart/biz/dal/mysql"
 	"github.com/xilepeng/gomall/app/cart/biz/model"
-	"github.com/xilepeng/gomall/app/cart/rpc"
+	"github.com/xilepeng/gomall/app/cart/infra/rpc"
 	cart "github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/product"
 )
@@ -20,7 +20,7 @@ func NewAddItemService(ctx context.Context) *AddItemService {
 
 // Run create note info
 func (s *AddItemService) Run(req *cart.AddItemReq) (resp *cart.AddItemResp, err error) {
-	// Finish your business logic.
+
 	productResp, err := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductReq{Id: req.Item.ProductId})
 	if err != nil {
 		return nil, err
@@ -32,7 +32,7 @@ func (s *AddItemService) Run(req *cart.AddItemReq) (resp *cart.AddItemResp, err 
 	cartItem := &model.Cart{
 		UserId:    req.UserId,
 		ProductId: req.Item.ProductId,
-		Qty:       req.GetItem().Quantity,
+		Qty:       req.Item.Quantity,
 	}
 
 	err = model.AddItem(s.ctx, mysql.DB, cartItem)

@@ -28,5 +28,5 @@ func Category(ctx context.Context, c *app.RequestContext) {
 	}
 
 	// utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
-	c.HTML(consts.StatusOK, "category", resp)
+	c.HTML(consts.StatusOK, "category", utils.WarpResponse(ctx, c, resp))
 }

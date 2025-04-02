@@ -15,3 +15,8 @@ func _getcartMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _addcartitemMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

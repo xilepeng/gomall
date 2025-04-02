@@ -12,7 +12,7 @@ import (
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/xilepeng/gomall/app/cart/biz/dal"
 	"github.com/xilepeng/gomall/app/cart/conf"
-	"github.com/xilepeng/gomall/app/cart/rpc"
+	"github.com/xilepeng/gomall/app/cart/infra/rpc"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -24,9 +24,6 @@ func main() {
 	rpc.InitClient()
 
 	opts := kitexInit()
-
-	rpc.InitClient()
-
 	svr := cartservice.NewServer(new(CartServiceImpl), opts...)
 
 	err := svr.Run()

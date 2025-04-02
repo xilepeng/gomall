@@ -52,6 +52,6 @@ func (h *GetCartService) Run(req *common.Empty) (resp map[string]any, err error)
 	return utils.H{
 		"title": "Cart",
 		"items": items,
-		"total": total,
+		"total": strconv.FormatFloat(float64(total), 'f', 2, 64),
 	}, nil
 }
