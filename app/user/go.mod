@@ -4,7 +4,7 @@ go 1.23.0
 
 replace (
 	github.com/apache/thrift => github.com/apache/thrift v0.13.0
-	github.com/xilepeng/gomall/rpc_gen/kitex_gen => ../../rpc_gen // 自定义模块远端如果找不到，去本地查找
+	github.com/xilepeng/gomall/rpc_gen/ => ../../rpc_gen // 自定义模块远端如果找不到，去本地查找
 )
 
 require (
