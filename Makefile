@@ -28,3 +28,8 @@ gen-product:
 gen-cart:
 	@cd rpc_gen && cwgo client --type RPC --server_name cart --module ${ROOT_MOD}/rpc_gen -I ../idl --idl ../idl/cart.proto 
 	@cd app/cart && cwgo server --type RPC --server_name cart --module ${ROOT_MOD}/app/cart  --pass "-use ${ROOT_MOD}/rpc_gen/kitex_gen" -I ../../idl --idl ../../idl/cart.proto
+
+.PHONY: gen-payment
+gen-payment:
+	@cd rpc_gen && cwgo client --type RPC --server_name payment --module ${ROOT_MOD}/rpc_gen -I ../idl --idl ../idl/payment.proto 
+	@cd app/payment && cwgo server --type RPC --server_name payment --module ${ROOT_MOD}/app/payment  --pass "-use ${ROOT_MOD}/rpc_gen/kitex_gen" -I ../../idl --idl ../../idl/payment.proto

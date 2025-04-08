@@ -1,8 +1,9 @@
-go 1.23.7
+go 1.23.8
 
 use (
 	./app/cart
 	./app/frontend
+	./app/payment
 	./app/product
 	./app/user
 	./demo/demo_proto
