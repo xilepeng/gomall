@@ -42,7 +42,7 @@ func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, e
 		UserId:        req.UserId,
 		OrderId:       req.OrderId,
 		TransactionId: transactionId.String(),
-		Amount:        req.Amout,
+		Amount:        req.Amount,
 		PayAt:         time.Now(),
 	})
 	if err != nil {

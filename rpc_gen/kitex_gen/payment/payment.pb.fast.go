@@ -103,7 +103,7 @@ ReadFieldError:
 }
 
 func (x *ChargeReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.Amout, offset, err = fastpb.ReadFloat(buf, _type)
+	x.Amount, offset, err = fastpb.ReadFloat(buf, _type)
 	return offset, err
 }
 
@@ -207,10 +207,10 @@ func (x *ChargeReq) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *ChargeReq) fastWriteField1(buf []byte) (offset int) {
-	if x.Amout == 0 {
+	if x.Amount == 0 {
 		return offset
 	}
-	offset += fastpb.WriteFloat(buf[offset:], 1, x.GetAmout())
+	offset += fastpb.WriteFloat(buf[offset:], 1, x.GetAmount())
 	return offset
 }
 
@@ -309,10 +309,10 @@ func (x *ChargeReq) Size() (n int) {
 }
 
 func (x *ChargeReq) sizeField1() (n int) {
-	if x.Amout == 0 {
+	if x.Amount == 0 {
 		return n
 	}
-	n += fastpb.SizeFloat(1, x.GetAmout())
+	n += fastpb.SizeFloat(1, x.GetAmount())
 	return n
 }
 
@@ -364,7 +364,7 @@ var fieldIDToName_CreditCardInfo = map[int32]string{
 }
 
 var fieldIDToName_ChargeReq = map[int32]string{
-	1: "Amout",
+	1: "Amount",
 	2: "CreditCard",
 	3: "OrderId",
 	4: "UserId",
