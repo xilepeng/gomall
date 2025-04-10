@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/cloudwego/kitex/pkg/kerrors"
+	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/google/uuid"
 	"github.com/xilepeng/gomall/app/checkout/infra/rpc"
 
@@ -49,14 +50,39 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 
 	// 创建订单id
 	var orderId string
-	u,_ := uuid.NewRandom()
+	u, _ := uuid.NewRandom()
 	orderId = u.String()
 
 	// 构建支付请求参数
 	payReq := &payment.ChargeReq{
-		UserId: req.UserId,
+		UserId:  req.UserId,
 		OrderId: orderId,
-		Amount: total,
+		Amount:  total,
+		CreditCard: &payment.CreditCardInfo{
+			CreditCardNumber:          req.CreditCard.CreditCardNumber,
+			CreditCardCvv:             req.CreditCard.CreditCardCvv,
+			CreditCardExpirationMonth: req.CreditCard.CreditCardExpirationMonth,
+			CreditCardExpirationYear:  req.CreditCard.CreditCardExpirationYear,
+		},
 	}
+	_, err = rpc.CartClient.EmptyCart(s.ctx, &cart.EmptyCartReq{UserId: req.UserId})
+
+	if err != nil {
+		klog.Error(err.Error())
+	}
+
+	paymentResult, err := rpc.PaymentClient.Charge(s.ctx, payReq)
+
+	if err != nil {
+		return nil, err
+	}
+
+	klog.Info(paymentResult)
+
+	resp = &checkout.CheckoutResp{
+		OrderId:       orderId,
+		TransactionId: paymentResult.TransactionId,
+	}
+	return
 
 }

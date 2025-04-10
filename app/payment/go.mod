@@ -17,7 +17,6 @@ require (
 	github.com/kr/pretty v0.3.1
 	github.com/redis/go-redis/v9 v9.7.3
 	github.com/xilepeng/gomall/app/cart v0.0.0-20250408072044-5bb3ac38cf0f
-	github.com/xilepeng/gomall/rpc_gen v0.0.0-20250408072044-5bb3ac38cf0f
 	go.uber.org/zap v1.27.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gopkg.in/validator.v2 v2.0.1
@@ -25,6 +24,8 @@ require (
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
 )
+
+require github.com/xilepeng/gomall/rpc_gen v0.0.0-20250410014619-ebe82561b761
 
 require (
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
