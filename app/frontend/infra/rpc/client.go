@@ -8,15 +8,17 @@ import (
 	"github.com/xilepeng/gomall/app/frontend/conf"
 	frontendutils "github.com/xilepeng/gomall/app/frontend/utils"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart/cartservice"
+	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/user/userservice"
 )
 
 var (
-	UserClient    userservice.Client
-	ProductClient productcatalogservice.Client
-	CartClient    cartservice.Client
-	once          sync.Once
+	UserClient     userservice.Client
+	ProductClient  productcatalogservice.Client
+	CartClient     cartservice.Client
+	CheckoutClient checkoutservice.Client
+	once           sync.Once
 )
 
 func Init() {
@@ -24,6 +26,7 @@ func Init() {
 		initUserClient()
 		initProductClient()
 		initCartClient()
+		initCheckoutClient()
 	})
 }
 
@@ -56,5 +59,14 @@ func initCartClient() {
 	frontendutils.MustHandleError(err)
 	opts = append(opts, client.WithResolver(r))
 	CartClient, err = cartservice.NewClient("cart", opts...)
+	frontendutils.MustHandleError(err)
+}
+
+func initCheckoutClient() {
+	var opts []client.Option
+	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
+	frontendutils.MustHandleError(err)
+	opts = append(opts, client.WithResolver(r))
+	CheckoutClient, err = checkoutservice.NewClient("checkout", opts...)
 	frontendutils.MustHandleError(err)
 }
