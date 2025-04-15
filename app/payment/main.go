@@ -10,7 +10,7 @@ import (
 	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
-	"github.com/xilepeng/gomall/app/cart/infra/rpc"
+
 	"github.com/xilepeng/gomall/app/payment/biz/dal"
 	"github.com/xilepeng/gomall/app/payment/conf"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/payment/paymentservice"
@@ -21,7 +21,7 @@ import (
 func main() {
 	_ = godotenv.Load()
 	dal.Init()
-	rpc.InitClient()
+	// rpc.InitClient()
 
 	opts := kitexInit()
 

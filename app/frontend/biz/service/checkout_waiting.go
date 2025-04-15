@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/cloudwego/hertz/pkg/app"
-	// "github.com/xilepeng/gomall/app/cart/utils"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	checkout "github.com/xilepeng/gomall/app/frontend/hertz_gen/frontend/checkout"
 	"github.com/xilepeng/gomall/app/frontend/infra/rpc"
@@ -26,6 +25,7 @@ func (h *CheckoutWaitingService) Run(req *checkout.CheckoutReq) (resp map[string
 	userId := frontendutils.GetUserIdFromCtx(h.Context)
 	_, err = rpc.CheckoutClient.Checkout(h.Context, &rpccheckout.CheckoutReq{
 		UserId:    uint32(userId),
+		Email:     req.Email,
 		Firstname: req.Firstname,
 		Lastname:  req.Lastname,
 		Address: &rpccheckout.Address{

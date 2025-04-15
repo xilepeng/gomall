@@ -6,8 +6,8 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	"github.com/xilepeng/gomall/app/checkout/infra/rpc"
 	common "github.com/xilepeng/gomall/app/frontend/hertz_gen/frontend/common"
+	"github.com/xilepeng/gomall/app/frontend/infra/rpc"
 	frontendutils "github.com/xilepeng/gomall/app/frontend/utils"
 	rpccart "github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart"
 	rpcproduct "github.com/xilepeng/gomall/rpc_gen/kitex_gen/product"
@@ -32,7 +32,9 @@ func (h *CheckoutService) Run(req *common.Empty) (resp map[string]any, err error
 	}
 	var total float32
 	for _, v := range carts.Items {
-		ProductResp, err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductReq{Id: v.ProductId})
+		ProductResp, err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductReq{
+			Id: v.ProductId,
+		})
 		if err != nil {
 			return nil, err
 		}
@@ -49,7 +51,7 @@ func (h *CheckoutService) Run(req *common.Empty) (resp map[string]any, err error
 		total += float32(v.Quantity) * p.Price
 	}
 	return utils.H{
-		"title": "checkout",
+		"title": "Checkout",
 		"itmes": itmes,
 		"total": strconv.FormatFloat(float64(total), 'f', 2, 64),
 	}, nil

@@ -7,10 +7,8 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
-	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
-	"github.com/xilepeng/gomall/app/checkout/biz/dal"
 	"github.com/xilepeng/gomall/app/checkout/conf"
 	"github.com/xilepeng/gomall/app/checkout/infra/rpc"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
@@ -20,11 +18,8 @@ import (
 
 func main() {
 
-	_ = godotenv.Load()
-	dal.Init()
-	rpc.InitClient()
-
 	opts := kitexInit()
+	rpc.InitClient()
 
 	svr := checkoutservice.NewServer(new(CheckoutServiceImpl), opts...)
 
