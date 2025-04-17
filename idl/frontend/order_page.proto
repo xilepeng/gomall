@@ -1,0 +1,16 @@
+syntax = "proto3";
+// proto 包名
+package frontend.order;
+
+import "api.proto";
+import "frontend/common.proto";
+
+// 生成 golang 代码后的包名
+option go_package = "frontend/order";
+
+// 定义 OrderService 服务
+service OrderService {
+  rpc OrderList(common.Empty) returns (common.Empty) { 
+    option (api.get) = "/order"; 
+  }
+}

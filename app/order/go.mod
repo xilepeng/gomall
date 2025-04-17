@@ -14,6 +14,7 @@ require (
 	github.com/kr/pretty v0.3.1
 	github.com/redis/go-redis/v9 v9.7.3
 	github.com/xilepeng/gomall/app/cart v0.0.0-20250415093714-2348ee9f5445
+	github.com/xilepeng/gomall/rpc_gen v0.0.0-20250417093647-dc3d49153efb
 	go.uber.org/zap v1.27.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gopkg.in/validator.v2 v2.0.1
@@ -89,6 +90,5 @@ require (
 require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20241120035129-55da83caab1b
-
 	go.uber.org/multierr v1.10.0 // indirect
 )

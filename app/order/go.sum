@@ -241,8 +241,8 @@ github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/xilepeng/gomall/app/cart v0.0.0-20250415093714-2348ee9f5445 h1:JIyjeXL7U1Kw7QNZ6nEpfhO8pj+IgWwSHt6loManrjc=
 github.com/xilepeng/gomall/app/cart v0.0.0-20250415093714-2348ee9f5445/go.mod h1:yUmNMOiBlxkUKsTdiiyy8NpKWPQ7Yi/l4g8Ro5bIne4=
-github.com/xilepeng/gomall/rpc_gen v0.0.0-20250415093714-2348ee9f5445 h1:FbKO3HCqCmhJNacfZZ0Fkx/toU1Ct9wuIoDILEpQ5W0=
-github.com/xilepeng/gomall/rpc_gen v0.0.0-20250415093714-2348ee9f5445/go.mod h1:13/PQgjV151z1CKP89kKosrVlp9p1plfPzKK/+8O0gM=
+github.com/xilepeng/gomall/rpc_gen v0.0.0-20250417093647-dc3d49153efb h1:q54YU70Vw22h3198A3a5B31D8x1fhqM4nLuXf1P6JRM=
+github.com/xilepeng/gomall/rpc_gen v0.0.0-20250417093647-dc3d49153efb/go.mod h1:13/PQgjV151z1CKP89kKosrVlp9p1plfPzKK/+8O0gM=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=

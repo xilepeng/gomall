@@ -32,7 +32,6 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderReq) (resp *order.PlaceOrde
 		o := &model.Order{
 			OrderId:      orderId.String(),
 			UserId:       req.UserId,
-			UserCurrency: req.UserCurrency,
 			Consignee: model.Consignee{
 				Email: req.Email,
 			},

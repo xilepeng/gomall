@@ -38,10 +38,10 @@ func (s *ListOrderService) Run(req *order.ListOrderReq) (resp *order.ListOrderRe
 			})
 		}
 		orders = append(orders, &order.Order{
-			OrderId:      v.OrderId,
-			UserId:       v.UserId,
-			UserCurrency: v.UserCurrency,
-			Email:        v.Consignee.Email,
+			CreatedAt: int32(v.CreatedAt.Unix()),
+			OrderId:   v.OrderId,
+			UserId:    v.UserId,
+			Email:     v.Consignee.Email,
 			Address: &order.Address{
 				StreetAddress: v.Consignee.StreetAddress,
 				Country:       v.Consignee.Country,
