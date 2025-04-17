@@ -15,7 +15,7 @@ message Address {
   string city = 2;
   string state = 3;
   string country = 4;
-  int32 zip_code = 5;
+  string zip_code = 5;
 }
 
 message OrderItem {
@@ -25,10 +25,10 @@ message OrderItem {
 
 message PlaceOrderReq {
   uint32 user_id = 1;
-  string user_currency = 2; // 用户支付币种
-  Address address = 3;
-  string email = 4;
-  repeated OrderItem items = 5;
+  // string user_currency = 2; // 用户支付币种
+  Address address = 2;
+  string email = 3;
+  repeated OrderItem items = 4;
 }
 
 message OrderResult {
@@ -47,10 +47,10 @@ message Order {
   repeated OrderItem items = 1;
   string order_id = 2;
   uint32 user_id = 3;
-  string user_currency = 4;
-  Address address = 5;
-  string email = 6;
-  int32 created_at = 7;
+  // string user_currency = 4;
+  Address address = 4;
+  string email = 5;
+  int32 created_at = 6;
 }
 
 message ListOrderResp {

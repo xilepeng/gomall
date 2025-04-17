@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/xilepeng/gomall/app/order/biz/model"
 	"github.com/xilepeng/gomall/app/order/conf"
 
 	"gorm.io/driver/mysql"
@@ -25,5 +27,12 @@ func Init() {
 	)
 	if err != nil {
 		panic(err)
+	}
+
+	if os.Getenv("GO_ENV") != "online" {
+		err = DB.AutoMigrate(&model.Order{}, &model.OrderItem{})
+		if err != nil {
+			klog.Error(err)
+		}
 	}
 }
