@@ -23,12 +23,13 @@ var (
 	once           sync.Once
 )
 
-func Init() {
+func InitClient() {
 	once.Do(func() {
 		initUserClient()
 		initProductClient()
 		initCartClient()
 		initCheckoutClient()
+		initOrderClient()
 	})
 }
 

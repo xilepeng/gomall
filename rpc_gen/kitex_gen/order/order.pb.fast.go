@@ -140,6 +140,11 @@ func (x *PlaceOrderReq) FastRead(buf []byte, _type int8, number int32) (offset i
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 5:
+		offset, err = x.fastReadField5(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -181,6 +186,11 @@ func (x *PlaceOrderReq) fastReadField4(buf []byte, _type int8) (offset int, err 
 	}
 	x.Items = append(x.Items, &v)
 	return offset, nil
+}
+
+func (x *PlaceOrderReq) fastReadField5(buf []byte, _type int8) (offset int, err error) {
+	x.UserCurrency, offset, err = fastpb.ReadString(buf, _type)
+	return offset, err
 }
 
 func (x *OrderResult) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
@@ -295,6 +305,11 @@ func (x *Order) FastRead(buf []byte, _type int8, number int32) (offset int, err 
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 7:
+		offset, err = x.fastReadField7(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -345,6 +360,11 @@ func (x *Order) fastReadField5(buf []byte, _type int8) (offset int, err error) {
 
 func (x *Order) fastReadField6(buf []byte, _type int8) (offset int, err error) {
 	x.CreatedAt, offset, err = fastpb.ReadInt32(buf, _type)
+	return offset, err
+}
+
+func (x *Order) fastReadField7(buf []byte, _type int8) (offset int, err error) {
+	x.UserCurrency, offset, err = fastpb.ReadString(buf, _type)
 	return offset, err
 }
 
@@ -463,6 +483,7 @@ func (x *PlaceOrderReq) FastWrite(buf []byte) (offset int) {
 	offset += x.fastWriteField2(buf[offset:])
 	offset += x.fastWriteField3(buf[offset:])
 	offset += x.fastWriteField4(buf[offset:])
+	offset += x.fastWriteField5(buf[offset:])
 	return offset
 }
 
@@ -497,6 +518,14 @@ func (x *PlaceOrderReq) fastWriteField4(buf []byte) (offset int) {
 	for i := range x.GetItems() {
 		offset += fastpb.WriteMessage(buf[offset:], 4, x.GetItems()[i])
 	}
+	return offset
+}
+
+func (x *PlaceOrderReq) fastWriteField5(buf []byte) (offset int) {
+	if x.UserCurrency == "" {
+		return offset
+	}
+	offset += fastpb.WriteString(buf[offset:], 5, x.GetUserCurrency())
 	return offset
 }
 
@@ -558,6 +587,7 @@ func (x *Order) FastWrite(buf []byte) (offset int) {
 	offset += x.fastWriteField4(buf[offset:])
 	offset += x.fastWriteField5(buf[offset:])
 	offset += x.fastWriteField6(buf[offset:])
+	offset += x.fastWriteField7(buf[offset:])
 	return offset
 }
 
@@ -608,6 +638,14 @@ func (x *Order) fastWriteField6(buf []byte) (offset int) {
 		return offset
 	}
 	offset += fastpb.WriteInt32(buf[offset:], 6, x.GetCreatedAt())
+	return offset
+}
+
+func (x *Order) fastWriteField7(buf []byte) (offset int) {
+	if x.UserCurrency == "" {
+		return offset
+	}
+	offset += fastpb.WriteString(buf[offset:], 7, x.GetUserCurrency())
 	return offset
 }
 
@@ -714,6 +752,7 @@ func (x *PlaceOrderReq) Size() (n int) {
 	n += x.sizeField2()
 	n += x.sizeField3()
 	n += x.sizeField4()
+	n += x.sizeField5()
 	return n
 }
 
@@ -748,6 +787,14 @@ func (x *PlaceOrderReq) sizeField4() (n int) {
 	for i := range x.GetItems() {
 		n += fastpb.SizeMessage(4, x.GetItems()[i])
 	}
+	return n
+}
+
+func (x *PlaceOrderReq) sizeField5() (n int) {
+	if x.UserCurrency == "" {
+		return n
+	}
+	n += fastpb.SizeString(5, x.GetUserCurrency())
 	return n
 }
 
@@ -809,6 +856,7 @@ func (x *Order) Size() (n int) {
 	n += x.sizeField4()
 	n += x.sizeField5()
 	n += x.sizeField6()
+	n += x.sizeField7()
 	return n
 }
 
@@ -862,6 +910,14 @@ func (x *Order) sizeField6() (n int) {
 	return n
 }
 
+func (x *Order) sizeField7() (n int) {
+	if x.UserCurrency == "" {
+		return n
+	}
+	n += fastpb.SizeString(7, x.GetUserCurrency())
+	return n
+}
+
 func (x *ListOrderResp) Size() (n int) {
 	if x == nil {
 		return n
@@ -898,6 +954,7 @@ var fieldIDToName_PlaceOrderReq = map[int32]string{
 	2: "Address",
 	3: "Email",
 	4: "Items",
+	5: "UserCurrency",
 }
 
 var fieldIDToName_OrderResult = map[int32]string{
@@ -919,6 +976,7 @@ var fieldIDToName_Order = map[int32]string{
 	4: "Address",
 	5: "Email",
 	6: "CreatedAt",
+	7: "UserCurrency",
 }
 
 var fieldIDToName_ListOrderResp = map[int32]string{

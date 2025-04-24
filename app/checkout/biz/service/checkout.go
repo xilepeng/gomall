@@ -5,11 +5,11 @@ import (
 
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/google/uuid"
 	"github.com/xilepeng/gomall/app/checkout/infra/rpc"
 
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart"
 	checkout "github.com/xilepeng/gomall/rpc_gen/kitex_gen/checkout"
+	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/order"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/payment"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/product"
 )
@@ -32,7 +32,10 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		return nil, kerrors.NewBizStatusError(5004001, "cart is empty")
 	}
 
-	var total float32 // 商品总价
+	var (
+		total float32 // 商品总价
+		oi    []*order.OrderItem
+	)
 	for _, cartItem := range cartResult.Items {
 		productResp, resultErr := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductReq{
 			Id: cartItem.ProductId,
@@ -46,12 +49,35 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		p := productResp.Product.Price
 		cost := p * float32(cartItem.Quantity)
 		total += cost
+		oi = append(oi, &order.OrderItem{
+			Item: &cart.CartItem{
+				ProductId: cartItem.ProductId,
+				Quantity:  cartItem.Quantity,
+			},
+			Cost: cost,
+		})
 	}
 
 	// 创建订单id
 	var orderId string
-	u, _ := uuid.NewRandom()
-	orderId = u.String()
+	orderResp, err := rpc.OrderClient.PlaceOrder(s.ctx, &order.PlaceOrderReq{
+		UserId: req.UserId,
+		Email:  req.Email,
+		Address: &order.Address{
+			StreetAddress: req.Address.StreetAddress,
+			City:          req.Address.City,
+			State:         req.Address.State,
+			Country:       req.Address.Country,
+			ZipCode:       req.Address.ZipCode,
+		},
+		Items: oi,
+	})
+	if err != nil {
+		return nil, kerrors.NewBizStatusError(5004002, err.Error())
+	}
+	if orderResp != nil && orderResp.Order != nil {
+		orderId = orderResp.Order.OrderId
+	}
 
 	// 构建支付请求参数
 	payReq := &payment.ChargeReq{
@@ -84,5 +110,4 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		TransactionId: paymentResult.TransactionId,
 	}
 	return
-
 }
