@@ -5,7 +5,7 @@ import (
 
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/google/uuid"
-	"github.com/xilepeng/gomall/app/cart/biz/dal/mysql"
+	"github.com/xilepeng/gomall/app/order/biz/dal/mysql"
 	"github.com/xilepeng/gomall/app/order/biz/model"
 	order "github.com/xilepeng/gomall/rpc_gen/kitex_gen/order"
 	"gorm.io/gorm"
@@ -30,8 +30,8 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderReq) (resp *order.PlaceOrde
 		orderId, _ := uuid.NewUUID()
 
 		o := &model.Order{
-			OrderId:      orderId.String(),
-			UserId:       req.UserId,
+			OrderId: orderId.String(),
+			UserId:  req.UserId,
 			Consignee: model.Consignee{
 				Email: req.Email,
 			},

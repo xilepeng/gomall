@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/cloudwego/kitex/pkg/kerrors"
-	"github.com/xilepeng/gomall/app/cart/biz/dal/mysql"
+	"github.com/xilepeng/gomall/app/order/biz/dal/mysql"
 	"github.com/xilepeng/gomall/app/order/biz/model"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart"
 	order "github.com/xilepeng/gomall/rpc_gen/kitex_gen/order"
