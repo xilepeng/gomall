@@ -13,7 +13,6 @@ require (
 	github.com/kitex-contrib/registry-consul v0.2.0
 	github.com/kr/pretty v0.3.1
 	github.com/redis/go-redis/v9 v9.7.3
-	github.com/xilepeng/gomall/app/cart v0.0.0-20250415093714-2348ee9f5445
 	go.uber.org/zap v1.27.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gopkg.in/validator.v2 v2.0.1

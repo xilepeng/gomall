@@ -10,8 +10,8 @@ type OrderItem struct {
 
 // 订单
 type Order struct {
-	OrderId    string
-	CreateDate string
-	Cost       float32
-	Items      []OrderItem
+	OrderId     string
+	CreatedDate string
+	Cost        float32
+	Items       []OrderItem
 }

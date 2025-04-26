@@ -59,7 +59,7 @@ func (h *OrderListService) Run(req *common.Empty) (resp map[string]any, err erro
 		created := time.Unix(int64(v.CreatedAt), 0)
 		list = append(list, types.Order{
 			OrderId:    v.OrderId,
-			CreateDate: created.Format("2006-01-02 15:04:05"),
+			CreatedDate: created.Format("2006-01-02 15:04:05"),
 			Cost:       total,
 			Items:       items,
 		})
