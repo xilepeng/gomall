@@ -4,7 +4,7 @@ go 1.23.8
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
-replace github.com/xilepeng/gomall/app/rpc_gen => ../../rpc_gen
+replace github.com/xilepeng/gomall/rpc_gen => ../../rpc_gen
 
 require (
 	github.com/cloudwego/kitex v0.12.3

@@ -4,11 +4,10 @@ go 1.23.8
 
 replace (
 	github.com/apache/thrift => github.com/apache/thrift v0.13.0
-	github.com/xilepeng/gomall/rpc_gen/kitex_gen => ../../rpc_gen // 自定义模块远端如果找不到，去本地查找
+	github.com/xilepeng/gomall/rpc_gen => ../../rpc_gen // 自定义模块远端如果找不到，去本地查找
 )
 
 require (
-	github.com/google/uuid v1.6.0
 	github.com/kr/pretty v0.3.1
 	github.com/redis/go-redis/v9 v9.7.3
 	github.com/xilepeng/gomall/rpc_gen v0.0.0-20250409063632-c2babb60b42b
