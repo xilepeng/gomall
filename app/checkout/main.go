@@ -10,7 +10,9 @@ import (
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/xilepeng/gomall/app/checkout/conf"
+	"github.com/xilepeng/gomall/app/checkout/infra/mq"
 	"github.com/xilepeng/gomall/app/checkout/infra/rpc"
+
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -20,6 +22,7 @@ func main() {
 
 	opts := kitexInit()
 	rpc.InitClient()
+	mq.Init()
 
 	svr := checkoutservice.NewServer(new(CheckoutServiceImpl), opts...)
 

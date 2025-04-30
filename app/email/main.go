@@ -8,13 +8,19 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	"github.com/xilepeng/gomall/app/email/biz/consumer"
 	"github.com/xilepeng/gomall/app/email/conf"
+	"github.com/xilepeng/gomall/app/email/infra/mq"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/email/emailservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func main() {
+
+	mq.Init()
+	consumer.Init()
+
 	opts := kitexInit()
 
 	svr := emailservice.NewServer(new(EmailServiceImpl), opts...)

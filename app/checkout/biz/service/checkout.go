@@ -5,10 +5,15 @@ import (
 
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/nats-io/nats.go"
+	"google.golang.org/protobuf/proto"
+
+	"github.com/xilepeng/gomall/app/checkout/infra/mq"
 	"github.com/xilepeng/gomall/app/checkout/infra/rpc"
 
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart"
 	checkout "github.com/xilepeng/gomall/rpc_gen/kitex_gen/checkout"
+	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/email"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/order"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/payment"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/product"
@@ -103,6 +108,21 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		return nil, err
 	}
 
+	// 生产者生产：消息
+	data, _ := proto.Marshal(&email.EmailReq{
+		From:        "x@163.com",
+		To:          req.Email,
+		ContentType: "text/plain",
+		Subject:     "you have just created an order in the x shop",
+		Content:     "you have just created an order in the x shop",
+	})
+
+	msg := &nats.Msg{Subject: "email", Data: data}
+	_ = mq.Nc.PublishMsg(msg)
+
+
+
+	
 	klog.Info(paymentResult)
 
 	resp = &checkout.CheckoutResp{
