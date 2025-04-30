@@ -1,6 +1,6 @@
 module github.com/xilepeng/gomall/app/user
 
-go 1.23.0
+go 1.24.1
 
 replace (
 	github.com/apache/thrift => github.com/apache/thrift v0.13.0
