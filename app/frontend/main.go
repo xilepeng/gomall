@@ -95,6 +95,7 @@ func main() {
 	})
 
 	h.GET("/about", func(c context.Context, ctx *app.RequestContext) {
+		hlog.CtxInfof(c, "CloudWeGo shop about page")
 		ctx.HTML(consts.StatusOK,
 			"about", utils.H{"Title": "About"})
 	})
@@ -116,6 +117,13 @@ func registerMiddleware(h *server.Hertz) {
 	logger := hertzobslogrus.NewLogger(hertzobslogrus.WithLogger(hertzlogrus.NewLogger().Logger()))
 	hlog.SetLogger(logger)
 	hlog.SetLevel(conf.LogLevel())
+	var flushInterval time.Duration
+	if os.Getenv("GO_ENV") == "online" {
+		flushInterval = time.Minute
+	} else {
+		flushInterval = time.Second
+	}
+
 	asyncWriter := &zapcore.BufferedWriteSyncer{
 		WS: zapcore.AddSync(&lumberjack.Logger{
 			Filename:   conf.GetConf().Hertz.LogFileName,
@@ -123,7 +131,7 @@ func registerMiddleware(h *server.Hertz) {
 			MaxBackups: conf.GetConf().Hertz.LogMaxBackups,
 			MaxAge:     conf.GetConf().Hertz.LogMaxAge,
 		}),
-		FlushInterval: time.Minute,
+		FlushInterval: flushInterval,
 	}
 	hlog.SetOutput(asyncWriter)
 	h.OnShutdown = append(h.OnShutdown, func(ctx context.Context) {
