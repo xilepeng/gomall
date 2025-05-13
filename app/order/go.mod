@@ -92,3 +92,5 @@ require (
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20241120035129-55da83caab1b
 	go.uber.org/multierr v1.10.0 // indirect
 )
+
+replace github.com/xilepeng/gomall/common => ../../common

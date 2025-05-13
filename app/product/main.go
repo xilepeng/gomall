@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"net"
 	"time"
 
@@ -12,13 +13,22 @@ import (
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/xilepeng/gomall/app/product/biz/dal"
 	"github.com/xilepeng/gomall/app/product/conf"
+	"github.com/xilepeng/gomall/common/mtl"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var serviceName = conf.GetConf().Kitex.Service
+
 func main() {
 	_ = godotenv.Load()
+	mtl.InitMetric(serviceName, conf.GetConf().Kitex.MetricsPort, conf.GetConf().Registry.RegistryAddress[0])
+
+	p := mtl.InitTracing(serviceName)
+	mtl.InitLog()
+	defer p.Shutdown(context.Background())
+
 	dal.Init()
 
 	opts := kitexInit()

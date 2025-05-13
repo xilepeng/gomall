@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"net"
 	"time"
 
@@ -11,12 +12,23 @@ import (
 	"github.com/xilepeng/gomall/app/email/biz/consumer"
 	"github.com/xilepeng/gomall/app/email/conf"
 	"github.com/xilepeng/gomall/app/email/infra/mq"
+	"github.com/xilepeng/gomall/common/mtl"
+	"github.com/xilepeng/gomall/common/serversuite"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/email/emailservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	ServiceName  = conf.GetConf().Kitex.Service
+	RegistryAddr = conf.GetConf().Registry.RegistryAddress[0]
+)
+
 func main() {
+	mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegistryAddr) // rpc dal 前面
+
+	p := mtl.InitTracing(ServiceName)
+	defer p.Shutdown(context.Background())
 
 	mq.Init()
 	consumer.Init()
@@ -37,7 +49,12 @@ func kitexInit() (opts []server.Option) {
 	if err != nil {
 		panic(err)
 	}
-	opts = append(opts, server.WithServiceAddr(addr))
+	opts = append(opts, server.WithServiceAddr(addr), server.WithSuite(
+		serversuite.CommonServerSuite{
+			CurrentServiceName: ServiceName,
+			RegistryAddr:       RegistryAddr,
+		},
+	))
 
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{

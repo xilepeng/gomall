@@ -17,6 +17,10 @@ import (
 	"github.com/hertz-contrib/gzip"
 	"github.com/hertz-contrib/logger/accesslog"
 	hertzlogrus "github.com/hertz-contrib/logger/logrus"
+	hertzprom "github.com/hertz-contrib/monitor-prometheus"
+	hertzobslogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
+	hertzoteltracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
+
 	"github.com/hertz-contrib/pprof"
 	"github.com/hertz-contrib/sessions"
 	"github.com/hertz-contrib/sessions/redis"
@@ -25,26 +29,55 @@ import (
 	"github.com/xilepeng/gomall/app/frontend/conf"
 	"github.com/xilepeng/gomall/app/frontend/infra/rpc"
 	"github.com/xilepeng/gomall/app/frontend/middleware"
+	frontendutils "github.com/xilepeng/gomall/app/frontend/utils"
+	"github.com/xilepeng/gomall/common/mtl"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	ServiceName  = frontendutils.ServiceName
+	MetricsPort  = conf.GetConf().Hertz.MetricsPort
+	RegistryAddr = conf.GetConf().Hertz.RegistryAddr
+)
+
 func main() {
+	_ = godotenv.Load()
+
+	p := mtl.InitTracing(ServiceName)
+	defer p.Shutdown(context.Background())
+
 	// init dal
 	// dal.Init()
+	consul, registryInfo := mtl.InitMetric(ServiceName, MetricsPort, RegistryAddr)
+	defer consul.Deregister(registryInfo)
 	rpc.InitClient()
 	address := conf.GetConf().Hertz.Address
-	h := server.New(server.WithHostPorts(address))
 
-	registerMiddleware(h)
+	// _ = hertzotelprovider.NewOpenTelemetryProvider(
+	// 	hertzotelprovider.WithSdkTracerProvider(mtl.TracerProvider),
+	// 	hertzotelprovider.WithEnableMetrics(false),
+	// )
 
-	// add a ping route to test
-	// h.GET("/ping", func(c context.Context, ctx *app.RequestContext) {
-	// 	ctx.JSON(consts.StatusOK, utils.H{"ping": "pong"})
+	// hertzoteltracing.WithCustomResponseHandler(func(ctx context.Context, c *app.RequestContext) {
+	// 	c.Header("shop-trace-id", oteltrace.SpanFromContext(ctx).SpanContext().TraceID().String())
 	// })
 
-	router.GeneratedRegister(h)
+	tracer, cfg := hertzoteltracing.NewServerTracer()
+
+	h := server.New(server.WithHostPorts(address),
+		server.WithTracer(hertzprom.NewServerTracer("", "",
+			hertzprom.WithRegistry(mtl.Registry), hertzprom.WithDisableServer(true)),
+		), tracer)
+
+	h.Use(hertzoteltracing.ServerMiddleware(cfg))
+	registerMiddleware(h)
+
 	h.LoadHTMLGlob("template/*")
+	// h.Delims("{{", "}}")
+	// h.Use(hertzoteltracing.ServerMiddleware(cfg))
+
+	router.GeneratedRegister(h)
 	h.Static("/static", "./")
 
 	h.GET("/sign-in", func(c context.Context, ctx *app.RequestContext) {
@@ -70,13 +103,17 @@ func main() {
 }
 
 func registerMiddleware(h *server.Hertz) {
-	_ = godotenv.Load()
+	// pprof
+	if conf.GetConf().Hertz.EnablePprof {
+		pprof.Register(h)
+	}
+
 	// sessions
 	store, _ := redis.NewStore(10, "tcp", conf.GetConf().Redis.Address, "", []byte(os.Getenv("SESSION_SECRET")))
 	h.Use(sessions.New("shop", store))
 
 	// log
-	logger := hertzlogrus.NewLogger()
+	logger := hertzobslogrus.NewLogger(hertzobslogrus.WithLogger(hertzlogrus.NewLogger().Logger()))
 	hlog.SetLogger(logger)
 	hlog.SetLevel(conf.LogLevel())
 	asyncWriter := &zapcore.BufferedWriteSyncer{
@@ -92,11 +129,6 @@ func registerMiddleware(h *server.Hertz) {
 	h.OnShutdown = append(h.OnShutdown, func(ctx context.Context) {
 		asyncWriter.Sync()
 	})
-
-	// pprof
-	if conf.GetConf().Hertz.EnablePprof {
-		pprof.Register(h)
-	}
 
 	// gzip
 	if conf.GetConf().Hertz.EnableGzip {

@@ -1,26 +1,39 @@
 package main
 
 import (
+	"context"
 	"net"
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
+	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/xilepeng/gomall/app/checkout/conf"
 	"github.com/xilepeng/gomall/app/checkout/infra/mq"
 	"github.com/xilepeng/gomall/app/checkout/infra/rpc"
+	"github.com/xilepeng/gomall/common/mtl"
 
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func main() {
+var (
+	ServiceName  = conf.GetConf().Kitex.Service
+	RegisterAddr = conf.GetConf().Registry.RegistryAddress[0]
+)
 
+func main() {
+	_ = godotenv.Load()
 	opts := kitexInit()
+	mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegisterAddr) // rpc dal 前面
+
+	p := mtl.InitTracing(ServiceName)
+	defer p.Shutdown(context.Background())
+
 	rpc.InitClient()
 	mq.Init()
 

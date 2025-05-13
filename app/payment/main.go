@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"net"
 	"time"
 
@@ -13,13 +14,23 @@ import (
 
 	"github.com/xilepeng/gomall/app/payment/biz/dal"
 	"github.com/xilepeng/gomall/app/payment/conf"
+	"github.com/xilepeng/gomall/common/mtl"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/payment/paymentservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	ServiceName  = conf.GetConf().Kitex.Service
+	RegisterAddr = conf.GetConf().Registry.RegistryAddress[0]
+)
+
 func main() {
 	_ = godotenv.Load()
+
+	p := mtl.InitTracing(ServiceName)
+	defer p.Shutdown(context.Background())
+	
 	dal.Init()
 	// rpc.InitClient()
 

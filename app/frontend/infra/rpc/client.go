@@ -4,9 +4,9 @@ import (
 	"sync"
 
 	"github.com/cloudwego/kitex/client"
-	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/xilepeng/gomall/app/frontend/conf"
 	frontendutils "github.com/xilepeng/gomall/app/frontend/utils"
+	"github.com/xilepeng/gomall/common/clientsuite"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/xilepeng/gomall/rpc_gen/kitex_gen/order/orderservice"
@@ -21,6 +21,10 @@ var (
 	CheckoutClient checkoutservice.Client
 	OrderClient    orderservice.Client
 	once           sync.Once
+	ServiceName    = frontendutils.ServiceName
+	MetricsPort    = conf.GetConf().Hertz.MetricsPort
+	RegistryAddr   = conf.GetConf().Hertz.RegistryAddr
+	err            error
 )
 
 func InitClient() {
@@ -34,51 +38,43 @@ func InitClient() {
 }
 
 func initUserClient() {
-	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
-	frontendutils.MustHandleError(err)
-	UserClient, err = userservice.NewClient("user", client.WithResolver(r))
+
+	UserClient, err = userservice.NewClient("user", client.WithSuite(clientsuite.CommonClientSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 	frontendutils.MustHandleError(err)
 }
 
-// func initProductClient() {
-// 	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
-// 	frontendutils.MustHandleError(err)
-// 	ProductClient, err = productcatalogservice.NewClient("product", client.WithResolver(r))
-// 	frontendutils.MustHandleError(err)
-// }
-
 func initProductClient() {
-	var opts []client.Option
-	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
-	frontendutils.MustHandleError(err)
-	opts = append(opts, client.WithResolver(r))
-	ProductClient, err = productcatalogservice.NewClient("product", opts...)
+	ProductClient, err = productcatalogservice.NewClient("product", client.WithSuite(clientsuite.CommonClientSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 	frontendutils.MustHandleError(err)
 }
 
 func initCartClient() {
-	var opts []client.Option
-	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
-	frontendutils.MustHandleError(err)
-	opts = append(opts, client.WithResolver(r))
-	CartClient, err = cartservice.NewClient("cart", opts...)
+
+	CartClient, err = cartservice.NewClient("cart", client.WithSuite(clientsuite.CommonClientSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 	frontendutils.MustHandleError(err)
 }
 
 func initCheckoutClient() {
-	var opts []client.Option
-	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
-	frontendutils.MustHandleError(err)
-	opts = append(opts, client.WithResolver(r))
-	CheckoutClient, err = checkoutservice.NewClient("checkout", opts...)
+	CheckoutClient, err = checkoutservice.NewClient("checkout", client.WithSuite(clientsuite.CommonClientSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 	frontendutils.MustHandleError(err)
 }
 
 func initOrderClient() {
-	var opts []client.Option
-	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
-	frontendutils.MustHandleError(err)
-	opts = append(opts, client.WithResolver(r))
-	OrderClient, err = orderservice.NewClient("order", opts...)
+	OrderClient, err = orderservice.NewClient("order", client.WithSuite(clientsuite.CommonClientSuite{
+		CurrentServiceName: ServiceName,
+		RegistryAddr:       RegistryAddr,
+	}))
 	frontendutils.MustHandleError(err)
 }
