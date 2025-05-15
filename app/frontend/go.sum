@@ -265,8 +265,8 @@ github.com/kitex-contrib/obs-opentelemetry v0.2.9 h1:yTW5Y0AdQjZU9sP08gzuQbC6WJR
 github.com/kitex-contrib/obs-opentelemetry v0.2.9/go.mod h1:1GERxWxU0IE3+pckV9IcilZDuvvy7fcqhcOphpJkgZc=
 github.com/kitex-contrib/obs-opentelemetry/logging/zap v0.0.0-20241120035129-55da83caab1b h1:td+0YgPBJkuA8srZwO7SjqYqNSW0fEdGDaCEWAmzQGA=
 github.com/kitex-contrib/obs-opentelemetry/logging/zap v0.0.0-20241120035129-55da83caab1b/go.mod h1:NUuhhOLwpinYkidyb6X+e8LS+ccZO4NL95QfTjg0//E=
-github.com/kitex-contrib/registry-consul v0.1.0 h1:G8re9ICA1kNxD/QmjwCt1HMiISwDzfnsaDeSBuIXDQ8=
-github.com/kitex-contrib/registry-consul v0.1.0/go.mod h1:h20aRkcmv0lip1nHDRWkLGzj8DNq47XpRWgsnLwLpbs=
+github.com/kitex-contrib/registry-consul v0.2.0 h1:1xTBMqCwN7uaLIlAwTCAPMO42exnPoJDFrM+hQOiNy4=
+github.com/kitex-contrib/registry-consul v0.2.0/go.mod h1:9iBT1P7g/G0ipv+HQDaVpV7jcrXbUABDhKkIbdgvheM=
 github.com/klauspost/compress v1.18.0 h1:c/Cqfb0r+Yi+JtIEq73FWXVkRonBlf0CRNYc8Zttxdo=
 github.com/klauspost/compress v1.18.0/go.mod h1:2Pp+KzxcywXVXMr50+X0Q/Lsb43OQHYWRCY2AiWywWQ=
 github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=

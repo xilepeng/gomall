@@ -10,7 +10,7 @@ replace (
 require (
 	github.com/cloudwego/kitex v0.12.3
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20241120035129-55da83caab1b
-	github.com/kitex-contrib/registry-consul v0.1.0 // indirect
+	github.com/kitex-contrib/registry-consul v0.2.0 // indirect
 	github.com/kr/pretty v0.3.1
 	github.com/redis/go-redis/v9 v9.7.3
 	// github.com/xilepeng/gomall/rpc_gen v0.0.0-00010101000000-000000000000
@@ -56,11 +56,11 @@ require (
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bytedance/gopkg v0.1.1 // indirect
-	github.com/bytedance/sonic v1.12.7 // indirect
-	github.com/bytedance/sonic/loader v0.2.2 // indirect
+	github.com/bytedance/sonic v1.13.2 // indirect
+	github.com/bytedance/sonic/loader v0.2.4 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/cloudwego/base64x v0.1.4 // indirect
+	github.com/cloudwego/base64x v0.1.5 // indirect
 	github.com/cloudwego/configmanager v0.2.2 // indirect
 	github.com/cloudwego/dynamicgo v0.5.2 // indirect
 	github.com/cloudwego/fastpb v0.0.5 // indirect
