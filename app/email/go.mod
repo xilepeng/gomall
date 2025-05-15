@@ -1,6 +1,6 @@
 module github.com/xilepeng/gomall/app/email
 
-go 1.24.1
+go 1.24.3
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
