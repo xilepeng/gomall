@@ -50,3 +50,27 @@ gen-order:
 gen-email:
 	@cd rpc_gen && cwgo client --type RPC --server_name email --module ${ROOT_MOD}/rpc_gen -I ../idl --idl ../idl/email.proto 
 	@cd app/email && cwgo server --type RPC --server_name email --module ${ROOT_MOD}/app/email  --pass "-use ${ROOT_MOD}/rpc_gen/kitex_gen" -I ../../idl --idl ../../idl/email.proto
+
+
+.PHONY: tidy-all
+tidy-all: 
+	cd app/cart && go mod tidy
+	cd app/checkout && go mod tidy
+	cd app/email && go mod tidy
+	cd app/frontend && go mod tidy
+	cd app/order && go mod tidy
+	cd app/payment && go mod tidy
+	cd app/product && go mod tidy
+	cd app/user && go mod tidy
+	cd common && go mod tidy
+
+.PHONY: build-frontend
+build-frontend:
+	docker build -f ./deploy/Dockerfile.frontend -t frontend:${v} .
+	# make build-frontend v=v1.1.1
+
+.PHONY: build-svc
+build-svc:
+	docker build -f ./deploy/Dockerfile.svc -t ${svc}:${v} --build-arg SVC=${svc} .
+	# make build-svc svc=product v=v1.1.1
+	# docker run

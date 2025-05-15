@@ -11,6 +11,7 @@ require (
 	github.com/redis/go-redis/v9 v9.7.3
 	github.com/xilepeng/gomall/common v0.0.0-00010101000000-000000000000
 	github.com/xilepeng/gomall/rpc_gen v0.0.0-00010101000000-000000000000
+	go.opentelemetry.io/otel v1.25.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.26.0
 )
@@ -59,7 +60,6 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/runtime v0.45.0 // indirect
 	go.opentelemetry.io/contrib/propagators/b3 v1.20.0 // indirect
 	go.opentelemetry.io/contrib/propagators/ot v1.25.0 // indirect
-	go.opentelemetry.io/otel v1.25.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric v0.42.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v0.42.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0 // indirect
