@@ -85,7 +85,7 @@ services:
       - "8080:8080"
     environment:
       - SESSION_SECRET=hfbpw
-      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4317
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
       - OTEL_EXPORTER_OTLP_INSECURE=true
       - GO_ENV=dev
     depends_on:
@@ -104,6 +104,9 @@ services:
            - MYSQL_USER=root
            - MYSQL_PASSWORD=root
            - MYSQL_HOST=mysql
+           - SESSION_SECRET=hfbpw
+           - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+           - OTEL_EXPORTER_OTLP_INSECURE=true
            - GO_ENV=dev
      depends_on:
        consul:
@@ -113,4 +116,69 @@ services:
      volumes:
        - ./app/product/conf/dev:/opt/gomall/product/conf/dev
 
+  user:
+     build:
+       context: .
+       dockerfile: ./deploy/Dockerfile.svc
+       args:
+           - SVC=user
+     environment:
+           - MYSQL_USER=root
+           - MYSQL_PASSWORD=root
+           - MYSQL_HOST=mysql
+           - SESSION_SECRET=hfbpw
+           - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+           - OTEL_EXPORTER_OTLP_INSECURE=true
+           - GO_ENV=dev
+     depends_on:
+       consul:
+           condition: service_started
+       mysql:
+           condition: service_healthy
+     volumes:
+       - ./app/user/conf/dev:/opt/gomall/user/conf/dev
 
+  cart:
+     build:
+       context: .
+       dockerfile: ./deploy/Dockerfile.svc
+       args:
+           - SVC=cart
+     environment:
+           - MYSQL_USER=root
+           - MYSQL_PASSWORD=root
+           - MYSQL_HOST=mysql
+           - SESSION_SECRET=hfbpw
+           - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+           - OTEL_EXPORTER_OTLP_INSECURE=true
+           - GO_ENV=dev
+     depends_on:
+       consul:
+           condition: service_started
+       mysql:
+           condition: service_healthy
+     volumes:
+       - ./app/cart/conf/dev:/opt/gomall/cart/conf/dev
+
+
+  checkout:
+     build:
+       context: .
+       dockerfile: ./deploy/Dockerfile.svc
+       args:
+           - SVC=checkout
+     environment:
+           - MYSQL_USER=root
+           - MYSQL_PASSWORD=root
+           - MYSQL_HOST=mysql
+           - SESSION_SECRET=hfbpw
+           - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=jaeger-all-in-one:4317
+           - OTEL_EXPORTER_OTLP_INSECURE=true
+           - GO_ENV=dev
+     depends_on:
+       consul:
+           condition: service_started
+       mysql:
+           condition: service_healthy
+     volumes:
+       - ./app/checkout/conf/dev:/opt/gomall/checkout/conf/dev

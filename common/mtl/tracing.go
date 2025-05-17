@@ -1,8 +1,8 @@
 package mtl
 
 import (
-	"github.com/hertz-contrib/obs-opentelemetry/provider"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	"gorm.io/plugin/opentelemetry/provider"
 )
 
 var TracerProvider *tracesdk.TracerProvider

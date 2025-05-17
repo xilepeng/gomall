@@ -26,7 +26,6 @@ func (s CommonClientSuite) Options() []client.Option {
 		client.WithTransportProtocol(transport.GRPC),
 		client.WithSuite(tracing.NewClientSuite()),
 	}
-
 	r, err := consul.NewConsulResolver(s.RegistryAddr)
 	if err != nil {
 		panic(err)
