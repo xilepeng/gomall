@@ -1,7 +1,6 @@
 package conf
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sync"
@@ -23,6 +22,7 @@ type Config struct {
 	MySQL    MySQL    `yaml:"mysql"`
 	Redis    Redis    `yaml:"redis"`
 	Registry Registry `yaml:"registry"`
+	Nats     Nats     `yaml:"nats"`
 }
 
 type MySQL struct {
@@ -53,6 +53,10 @@ type Registry struct {
 	Password        string   `yaml:"password"`
 }
 
+type Nats struct {
+	Address string `yaml:"address"`
+}
+
 // GetConf gets configuration instance
 func GetConf() *Config {
 	once.Do(initConf)
@@ -62,7 +66,7 @@ func GetConf() *Config {
 func initConf() {
 	prefix := "conf"
 	confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
-	content, err := ioutil.ReadFile(confFileRelPath)
+	content, err := os.ReadFile(confFileRelPath)
 	if err != nil {
 		panic(err)
 	}

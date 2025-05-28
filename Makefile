@@ -72,5 +72,30 @@ build-frontend:
 .PHONY: build-svc
 build-svc:
 	docker build -f ./deploy/Dockerfile.svc -t ${svc}:${v} --build-arg SVC=${svc} .
+	# make build-svc svc=cart v=v1.1.1
+	# make build-svc svc=checkout v=v1.1.1
+	# make build-svc svc=email v=v1.1.1
+	# make build-svc svc=frontend v=v1.1.1
+	# make build-svc svc=order v=v1.1.1
+	# make build-svc svc=payment v=v1.1.1
 	# make build-svc svc=product v=v1.1.1
+	# make build-svc svc=user v=v1.1.1
 	# docker run
+
+.PHONY: build-all
+build-all:
+	docker build -f ./deploy/Dockerfile.frontend -t frontend:${v} .
+	docker build -f ./deploy/Dockerfile.svc -t cart:${v} --build-arg SVC=cart .
+	docker build -f ./deploy/Dockerfile.svc -t checkout:${v} --build-arg SVC=checkout .
+	docker build -f ./deploy/Dockerfile.svc -t email:${v} --build-arg SVC=email .
+	docker build -f ./deploy/Dockerfile.svc -t order:${v} --build-arg SVC=order .
+	docker build -f ./deploy/Dockerfile.svc -t payment:${v} --build-arg SVC=payment .
+	docker build -f ./deploy/Dockerfile.svc -t product:${v} --build-arg SVC=product .
+	docker build -f ./deploy/Dockerfile.svc -t user:${v} --build-arg SVC=user .
+	# make build-all v=v1.1.1
+
+.PHONY: kind-load-image
+kind-load-image:
+	kind load docker-image --name gomall-dev \
+	frontend:${v} cart:${v} checkout:${v} email:${v} order:${v} payment:${v} product:${v} user:${v}
+	# make kind-load-image v=v1.1.1
