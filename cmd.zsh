@@ -1,4 +1,9 @@
 
+# 部署数据库 MySQL 
+docker run -itd --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+
+
+
 # kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
 brew install kind
 brew install kubectl 
